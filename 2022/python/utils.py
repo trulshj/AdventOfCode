@@ -16,4 +16,4 @@ def time_function(function, data):
     """Runs a function on the given data and returns the elapsed time"""
     start_time = time()
     result = function(data)
-    return round((time() - start_time) * 1e6, 3), result
+    return round((time() - start_time) * 1e6, 2), result
