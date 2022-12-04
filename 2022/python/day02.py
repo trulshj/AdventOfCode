@@ -1,9 +1,21 @@
-def main():
-    with open("../inputs/day02.txt") as f:
-        rounds = [line.rstrip().split(" ") for line in f.readlines()]
+import utils
 
-    print(run_tournament(rounds, strategy_1))
-    print(run_tournament(rounds, strategy_2))
+
+def main():
+    utils.print_day(2, part1, part2, get_data())
+
+
+def get_data():
+    with open("../inputs/day02.txt") as f:
+        return [line.rstrip().split(" ") for line in f.readlines()]
+
+
+def part1(rounds):
+    return run_tournament(rounds, strategy_1)
+
+
+def part2(rounds):
+    return run_tournament(rounds, strategy_2)
 
 
 def run_tournament(rounds, strategy):

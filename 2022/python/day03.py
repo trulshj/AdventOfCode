@@ -1,12 +1,20 @@
+import utils
 from string import ascii_letters
 
 
 def main():
-    with open("../inputs/day03.txt") as f:
-        rucksacks = [parse_rucksack(line) for line in f.readlines()]
+    utils.print_day(3, part1, part2, get_data())
 
-    print("Part 1:", part1(rucksacks))
-    print("Part 2:", part2(rucksacks))
+
+def parse_rucksack(line: str) -> tuple[str, str]:
+    line = line.rstrip()
+    middle = len(line) // 2
+    return (line[:middle], line[middle:])
+
+
+def get_data():
+    with open("../inputs/day03.txt") as f:
+        return [parse_rucksack(line) for line in f.readlines()]
 
 
 def part1(rucksacks: list[tuple[str, str]]):
@@ -31,12 +39,6 @@ def find_group_item(group: list[tuple[str, str]]):
 
 def get_item_priority(item: str):
     return ascii_letters.index(item) + 1
-
-
-def parse_rucksack(line: str) -> tuple[str, str]:
-    line = line.rstrip()
-    middle = len(line) // 2
-    return (line[:middle], line[middle:])
 
 
 if __name__ == "__main__":
