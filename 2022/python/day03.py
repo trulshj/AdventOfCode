@@ -3,7 +3,7 @@ from string import ascii_letters
 
 
 def main():
-    utils.print_day(3, part1, part2, get_data())
+    utils.print_day(3, part1, part2, get_data)
 
 
 def parse_rucksack(line: str) -> tuple[str, str]:

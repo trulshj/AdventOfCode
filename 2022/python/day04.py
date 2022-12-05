@@ -3,7 +3,7 @@ from utils import print_day
 
 
 def main():
-    print_day(4, part1, part2, get_data())
+    print_day(4, part1, part2, get_data)
 
 
 def get_data():

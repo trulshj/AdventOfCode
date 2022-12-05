@@ -2,7 +2,7 @@ import utils
 
 
 def main():
-    utils.print_day(1, part1, part2, get_data())
+    utils.print_day(1, part1, part2, get_data)
 
 
 def get_data():

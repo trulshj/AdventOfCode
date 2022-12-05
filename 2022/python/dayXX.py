@@ -4,7 +4,7 @@ DAY = 0
 
 
 def main():
-    print_day(DAY, part1, part2, get_data())
+    print_day(DAY, part1, part2, get_data)
 
 
 def get_data():

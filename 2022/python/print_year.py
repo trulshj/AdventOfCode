@@ -2,7 +2,7 @@ import day01
 import day02
 import day03
 import day04
-# import day05
+import day05
 # import day06
 # import day07
 # import day08
@@ -31,7 +31,7 @@ if __name__ == "__main__":
         day02,
         day03,
         day04,
-        # day05,
+        day05,
         # day06,
         # day07,
         # day08,
