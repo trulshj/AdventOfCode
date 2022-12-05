@@ -37,7 +37,7 @@ def part2(data):
 def move_crates(stacks, moves, reverse):
     for times, from_stack, to_stack in moves:
         from_idx = len(stacks[from_stack]) - times
-        stacks[to_stack] += stacks[from_stack][from_idx:][::-reverse]
+        stacks[to_stack] += stacks[from_stack][from_idx:][::reverse]
         del stacks[from_stack][from_idx:]
 
     return "".join([stacks[i][-1] for i in range(1, len(stacks.keys()) + 1)])
