@@ -6,16 +6,13 @@ DAY = 5
 
 
 def main():
-    print_day(DAY, part1, part2, get_data())
-    print(part1(get_data()))
-    print(part2(get_data()))
+    print_day(DAY, part1, part2, get_data)
 
 
 def get_data():
     with open(f"../inputs/day{DAY:02}.txt") as f:
         crates, commands = f.read().split("\n\n")
 
-        number_of_stacks = int(crates.split("\n")[-1].split()[-1])
         stacks = defaultdict(list)
 
         for row in crates.split("\n")[:-1]:
@@ -30,20 +27,18 @@ def get_data():
 
 
 def part1(data):
-    stacks, moves = data
-    for times, from_stack, to_stack in moves:
-        for _ in range(times):
-            stacks[to_stack].append(stacks[from_stack].pop())
-
-    return "".join([stacks[i][-1] for i in range(1, len(stacks.keys()) + 1)])
+    return move_crates(*data, -1)
 
 
 def part2(data):
-    stacks, moves = data
+    return move_crates(*data, 1)
+
+
+def move_crates(stacks, moves, reverse):
     for times, from_stack, to_stack in moves:
-        stacks[to_stack] += stacks[from_stack][len(stacks[from_stack])-times:]
-        for _ in range(times):
-            stacks[from_stack].pop()
+        from_idx = len(stacks[from_stack]) - times
+        stacks[to_stack] += stacks[from_stack][from_idx:][::-reverse]
+        del stacks[from_stack][from_idx:]
 
     return "".join([stacks[i][-1] for i in range(1, len(stacks.keys()) + 1)])
 
