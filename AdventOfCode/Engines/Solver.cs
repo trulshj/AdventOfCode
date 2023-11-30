@@ -1,8 +1,9 @@
 using System.Diagnostics;
 using System.Reflection;
+using AdventOfCode.Puzzles;
 using Spectre.Console;
 
-namespace AdventOfCode;
+namespace AdventOfCode.Engines;
 
 public static class Solver
 {
@@ -99,7 +100,8 @@ public static class Solver
     internal static IEnumerable<BaseDay> LoadAllDays(Assembly assembly)
     {
         return assembly.GetTypes()
-            .Where(type => typeof(BaseDay).IsAssignableFrom(type) && type is { IsAbstract: false, IsInterface: false })
+            .Where(type => typeof(BaseDay).IsAssignableFrom(type) &&
+                           type is { IsAbstract: false, IsInterface: false } && !type.FullName!.EndsWith("XX"))
             .OrderBy(t => t.FullName)
             .Select(t => Activator.CreateInstance(t) as BaseDay)!;
     }

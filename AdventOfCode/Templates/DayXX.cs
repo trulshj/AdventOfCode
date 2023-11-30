@@ -1,6 +1,8 @@
-namespace AdventOfCode.Days;
+using AdventOfCode.Puzzles;
 
-public class Day02 : BaseDay
+namespace AdventOfCode.Templates;
+
+public class DayXX : BaseDay
 {
     public override Task<string> SolvePart1Async()
     {
