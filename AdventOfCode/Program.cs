@@ -1,6 +1,5 @@
 ﻿using System.CommandLine;
 using AdventOfCode.Engines;
-using Action = AdventOfCode.Engines.Action;
 
 namespace AdventOfCode;
 
@@ -13,7 +12,7 @@ internal static class Program
             description: "Prompt user for action",
             getDefaultValue: () => false);
 
-        var actionOption = new Option<Action?>(
+        var actionOption = new Option<UserAction?>(
             new[] { "--action", "-a" },
             "Specify the action to perform");
 
@@ -29,10 +28,10 @@ internal static class Program
 
             switch (action)
             {
-                case Action.SolveAll:
+                case UserAction.SolveAll:
                     await Solver.Solve();
                     break;
-                case Action.GenerateNextDay:
+                case UserAction.GenerateNextDay:
                     await Generator.GenerateNextDay();
                     break;
                 default:

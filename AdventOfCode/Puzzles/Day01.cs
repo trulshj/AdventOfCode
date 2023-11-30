@@ -5,6 +5,7 @@ public class Day01 : BaseDay
     public override async Task<string> SolvePart1Async()
     {
         var input = await ReadInputFileAsync();
+        var inputAsLines = await ReadInputFileAsLinesAsync();
 
         Console.WriteLine("Testing testing");
 

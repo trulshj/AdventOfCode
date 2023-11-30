@@ -4,19 +4,19 @@ namespace AdventOfCode.Engines;
 
 public static class Prompter
 {
-    public static Action PromptUserForAction()
+    public static UserAction PromptUserForAction()
     {
         var actionFromPrompt = AnsiConsole.Prompt(new SelectionPrompt<string>()
             .Title("Select action")
-            .AddChoices(Enum.GetNames<Action>()));
+            .AddChoices(Enum.GetNames<UserAction>()));
 
-        if (Enum.TryParse(actionFromPrompt, out Action action))
+        if (Enum.TryParse(actionFromPrompt, out UserAction action))
             return action;
         throw new ArgumentException($"Invalid action: {actionFromPrompt}");
     }
 }
 
-public enum Action
+public enum UserAction
 {
     SolveAll,
     GenerateNextDay
