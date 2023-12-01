@@ -1,9 +1,11 @@
+using AdventOfCode.Helpers;
+
 namespace AdventOfCode.Puzzles;
 
 public abstract class BaseDay
 {
     protected virtual string ClassPrefix { get; } = "Day";
-    protected virtual string InputFileDirectory { get; } = "Inputs";
+    protected virtual string InputFileDirectory { get; } = DirectoryElf.GetPath("Inputs");
     protected virtual string InputFileExtension { get; } = ".txt";
     private string? InputFileContents { get; set; }
     private string[]? InputFileAsLines { get; set; }
@@ -20,6 +22,7 @@ public abstract class BaseDay
     protected virtual string InputFilePath()
     {
         var problemIndex = CalculateProblemIndex();
+
         return Path.Combine(InputFileDirectory, $"{problemIndex:D2}{InputFileExtension}");
     }
 

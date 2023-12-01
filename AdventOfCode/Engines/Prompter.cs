@@ -18,6 +18,7 @@ public static class Prompter
 
 public enum UserAction
 {
+    SolveLatest,
     SolveAll,
     GenerateNextDay
 }
