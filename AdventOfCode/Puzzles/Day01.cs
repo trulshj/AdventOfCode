@@ -6,10 +6,9 @@ namespace AdventOfCode.Puzzles;
 
 public partial class Day01 : BaseDay
 {
-    public override async Task<string> SolvePart1Async()
+    public override string SolvePart1Async()
     {
-        var inputAsLines = await ReadInputFileAsLinesAsync();
-        return inputAsLines.Select(ParseLine).Sum().ToString();
+        return InputFileAsLines.Select(ParseLine).Sum().ToString();
 
         int ParseLine(string line)
         {
@@ -19,10 +18,9 @@ public partial class Day01 : BaseDay
         }
     }
 
-    public override async Task<string> SolvePart2Async()
+    public override string SolvePart2Async()
     {
-        var inputAsLines = await ReadInputFileAsLinesAsync();
-        return inputAsLines.Select(ParseLine).Sum().ToString();
+        return InputFileAsLines.Select(ParseLine).Sum().ToString();
 
         int ParseLine(string line)
         {

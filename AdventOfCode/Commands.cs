@@ -5,6 +5,24 @@ namespace AdventOfCode;
 
 public static class Commands
 {
+    private static void HandleSolveCommand(int? day, bool latest)
+    {
+        var solver = new Solver();
+
+        switch (day)
+        {
+            case { } dayValue:
+                solver.SolveSpecific(dayValue);
+                break;
+            case var _ when latest:
+                solver.SolveLatest();
+                break;
+            default:
+                solver.SolveAll();
+                break;
+        }
+    }
+
     public static Command SolveCommand()
     {
         var solveCommand = new Command("solve", "Solve all days");
@@ -31,7 +49,8 @@ public static class Commands
             new[] { "--action", "-a" },
             "Specify the action to perform");
 
-        var rootCommand = new RootCommand("Advent of Code");
+        var rootCommand =
+            new RootCommand("Over-engineered pile of scrap for solving Advent of Code the enterprise way B-)");
 
         rootCommand.AddOption(promptOption);
         rootCommand.AddOption(actionOption);
@@ -46,10 +65,10 @@ public static class Commands
             switch (action)
             {
                 case UserAction.SolveLatest:
-                    await solver.SolveLatest();
+                    solver.SolveLatest();
                     break;
                 case UserAction.SolveAll:
-                    await solver.SolveAll();
+                    solver.SolveAll();
                     break;
                 case UserAction.GenerateNextDay:
                     await Generator.GenerateNextDay();
@@ -71,18 +90,5 @@ public static class Commands
         generateCommand.SetHandler(async () => await Generator.GenerateNextDay());
 
         return generateCommand;
-    }
-
-
-    private static async Task HandleSolveCommand(int? day, bool latest)
-    {
-        var solver = new Solver();
-
-        await (day switch
-        {
-            { } dayValue => solver.SolveSpecific(dayValue),
-            _ when latest => solver.SolveLatest(),
-            _ => solver.SolveAll()
-        });
     }
 }

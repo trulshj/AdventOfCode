@@ -13,39 +13,39 @@ public class Solver
 
     private Table Table { get; } = TableElf.CreateTable();
 
-    private async Task Solve(IEnumerable<BaseDay> days)
+    private void Solve(IEnumerable<BaseDay> days)
     {
-        await AnsiConsole.Live(Table).StartAsync(async _ =>
+        AnsiConsole.Live(Table).Start(_ =>
         {
             foreach (var day in days)
             {
-                await SolveDay(day);
+                SolveDay(day);
                 Table.AddEmptyRow();
             }
         });
     }
 
-    private async Task Solve(BaseDay day)
+    private void Solve(BaseDay day)
     {
-        await Solve(new[] { day });
+        Solve(new[] { day });
     }
 
-    public async Task SolveLatest()
+    public void SolveLatest()
     {
-        await Solve(Days.Last());
+        Solve(Days.Last());
     }
 
-    public async Task SolveSpecific(int dayIndex)
+    public void SolveSpecific(int dayIndex)
     {
-        await Solve(Days[dayIndex - 1]);
+        Solve(Days[dayIndex - 1]);
     }
 
-    public async Task SolveAll()
+    public void SolveAll()
     {
-        await Solve(Days);
+        Solve(Days);
     }
 
-    private async Task SolveDay(BaseDay day)
+    private void SolveDay(BaseDay day)
     {
         var problemIndex = day.CalculateProblemIndex();
         var problemTitle = $"Day {problemIndex}";
@@ -55,6 +55,7 @@ public class Solver
         try
         {
             day.CheckInputFileExists();
+            day.LoadInputFileContents();
         }
         catch (FileNotFoundException)
         {
@@ -63,14 +64,14 @@ public class Solver
             return;
         }
 
-        var (part1Solution, part1ElapsedTime) = await SolvePart(day.SolvePart1Async);
+        var (part1Solution, part1ElapsedTime) = SolvePart(day.SolvePart1Async);
         Table.AddSolutionRow("1", part1Solution, part1ElapsedTime);
 
-        var (part2Solution, part2ElapsedTime) = await SolvePart(day.SolvePart2Async);
+        var (part2Solution, part2ElapsedTime) = SolvePart(day.SolvePart2Async);
         Table.AddSolutionRow("2", part2Solution, part2ElapsedTime);
     }
 
-    private static async Task<(string solution, long elapsedTime)> SolvePart(Func<Task<string>> partFunction)
+    private static (string solution, long elapsedTime) SolvePart(Func<string> partFunction)
     {
         Stopwatch stopwatch = new();
         string solution;
@@ -78,7 +79,7 @@ public class Solver
         try
         {
             stopwatch.Start();
-            solution = await partFunction();
+            solution = partFunction();
         }
         catch (NotImplementedException)
         {
