@@ -7,78 +7,44 @@ public class Day03 : BaseDay
     private const string Numbers = "1234567890";
     private const string NotSymbols = "1234567890.";
 
-    private static readonly Coordinate[] Deltas =
-    {
-        new(-1, -1), new(-1, 0), new(-1, 1),
-        new(0, -1), new(0, 1),
-        new(1, -1), new(1, 0), new(1, 1)
-    };
-
-    private Matrix2D<char> Grid { get; set; }
+    private Matrix<char> Grid { get; set; } = null!;
 
     private List<Symbol> Symbols { get; } = new();
 
     public override string SolvePart1Async()
     {
-        Grid = new Matrix2D<char>(InputFileAsLines.Select(line => line.ToCharArray()).ToArray());
+        Grid = new Matrix<char>(InputFileAsLines.Select(line => line.ToCharArray()).ToArray());
 
-        var numbers = new List<int>();
+        Symbols.AddRange(Grid.GetCoordinatesAndValues(x => !NotSymbols.Contains(x))
+            .Select(x => new Symbol(x.value, x.coordinate)));
 
-        for (var y = 0; y < Grid.Height; y++)
-        for (var x = 0; x < Grid.Width; x++)
-            if (!NotSymbols.Contains(Grid[y][x]))
-                Symbols.Add(new Symbol(Grid[y][x], new Coordinate(y, x)));
+        var visited = new HashSet<Coordinate>();
 
-        foreach (var symbol in Symbols)
-        {
-            var visited = new HashSet<Coordinate>();
-
-            foreach (var delta in Deltas)
-            {
-                var newCoord = symbol.Coord + delta;
-
-                if (!Grid.WithinBounds(newCoord)) continue;
-
-                if (!Numbers.Contains(Grid.Get(newCoord)) || visited.Contains(newCoord)) continue;
-
-                numbers.Add(ScanNumber(newCoord, visited));
-            }
-        }
-
-        return numbers.Sum().ToString();
+        return Symbols.Select(symbol =>
+                Grid.GetNeighbors(symbol.Coord)
+                    .Where(coordinate => Numbers.Contains(Grid[coordinate]) && !visited.Contains(coordinate))
+                    .Select(coordinate => ScanNumber(coordinate, visited)).Sum())
+            .Sum()
+            .ToString();
     }
 
     public override string SolvePart2Async()
     {
-        var sum = 0;
         var visited = new HashSet<Coordinate>();
 
-        foreach (var symbol in Symbols)
-        {
-            if (symbol.Value != '*') continue;
-
-            var numbers = new List<int>();
-
-            foreach (var delta in Deltas)
-            {
-                var newCoord = symbol.Coord + delta;
-
-                if (!Grid.WithinBounds(newCoord))
-                    continue;
-
-                if (!Numbers.Contains(Grid[newCoord.Y][newCoord.X]) || visited.Contains(newCoord)) continue;
-
-                numbers.Add(ScanNumber(newCoord, visited));
-            }
-
-            if (numbers.Count == 2)
-                sum += numbers[0] * numbers[1];
-        }
-
-        return sum.ToString();
+        return Symbols
+            .Where(symbol => symbol.Value == '*')
+            .Select(symbol =>
+                Grid.GetNeighbors(symbol.Coord)
+                    .Where(coordinate => Numbers.Contains(Grid[coordinate]) && !visited.Contains(coordinate))
+                    .Select(coordinate => ScanNumber(coordinate, visited)).ToArray())
+            .Where(numbers => numbers.Length == 2)
+            .Select(numbers => numbers[0] * numbers[1])
+            .Sum()
+            .ToString();
     }
 
-    private int ScanNumber(Coordinate start, HashSet<Coordinate> visited)
+    private int ScanNumber(Coordinate start, ISet<Coordinate> visited)
     {
         var queue = new Queue<Coordinate>();
         queue.Enqueue(start);
