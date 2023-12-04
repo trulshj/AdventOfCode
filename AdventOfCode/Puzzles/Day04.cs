@@ -17,9 +17,9 @@ public partial class Day04 : BaseDay
                 group[3].Captures.Select(capture => int.Parse(capture.Value)).ToArray())).ToList();
 
         return Cards
-            .Select(x => x.ScratchedNumbers.Count(s => x.WinningNumber.Contains(s)))
-            .Where(x => x > 0)
-            .Select(c => Math.Pow(2, c - 1))
+            .Select(card => card.ScratchedNumbers.Count(scratched => card.WinningNumber.Contains(scratched)))
+            .Where(count => count > 0)
+            .Select(count => Math.Pow(2, count - 1))
             .Sum()
             .ToString(CultureInfo.InvariantCulture);
     }
@@ -29,8 +29,9 @@ public partial class Day04 : BaseDay
         var copies = Cards.ToDictionary(card => card.CardId, _ => 1);
 
         var wins = Cards
-            .Select(card => (cardId: card.CardId, card.ScratchedNumbers.Count(s => card.WinningNumber.Contains(s))))
-            .Where(x => x.Item2 > 0)
+            .Select(card => (cardId: card.CardId,
+                count: card.ScratchedNumbers.Count(s => card.WinningNumber.Contains(s))))
+            .Where(card => card.count > 0)
             .ToArray();
 
         foreach (var (cardId, count) in wins)
@@ -40,7 +41,7 @@ public partial class Day04 : BaseDay
         }
 
         return copies
-            .Select(x => x.Value)
+            .Select(copyCount => copyCount.Value)
             .Sum()
             .ToString();
     }
