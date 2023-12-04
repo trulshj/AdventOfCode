@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
-using AdventOfCode.Extensions;
 
 namespace AdventOfCode.Puzzles;
 
@@ -13,8 +12,7 @@ public partial class Day01 : BaseDay
         int ParseLine(string line)
         {
             var nums = Digits().Matches(line).Select(x => x.Value).ToArray();
-            var n = nums.First() + nums.Last();
-            return int.Parse(n);
+            return int.Parse(nums.First() + nums.Last());
         }
     }
 
@@ -24,16 +22,8 @@ public partial class Day01 : BaseDay
 
         int ParseLine(string line)
         {
-            var nums = ForwardsNumbers().Matches(line)
-                .Select(x => x.Value).ToList();
-
-            var reversedNums = ReversedNumbers().Matches(line.ReverseX())
-                .Select(x => x.Value.ReverseX()).ToList();
-
-            var first = ConvertWord(nums.First());
-            var snd = ConvertWord(reversedNums.First());
-
-            return int.Parse(first + snd);
+            var numbers = Numbers().Matches(line).Select(x => ConvertWord(x.Groups[1].Value)).ToArray();
+            return int.Parse(numbers.First() + numbers.Last());
         }
     }
 
@@ -56,11 +46,8 @@ public partial class Day01 : BaseDay
         return word.Length == 1 ? word : digitDictionary[word];
     }
 
-    [GeneratedRegex(@"\d|one|two|three|four|five|six|seven|eight|nine")]
-    private static partial Regex ForwardsNumbers();
-
-    [GeneratedRegex(@"\d|enin|thgie|neves|xis|evif|ruof|eerht|owt|eno")]
-    private static partial Regex ReversedNumbers();
+    [GeneratedRegex(@"(?=(one|two|three|four|five|six|seven|eight|nine|\d))")]
+    private static partial Regex Numbers();
 
     [GeneratedRegex(@"\d")]
     private static partial Regex Digits();
