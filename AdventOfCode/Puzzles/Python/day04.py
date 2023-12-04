@@ -1,11 +1,10 @@
+import re
+
+
 def parse_line(line):
-    card_part, numbers_part = line.split(':')
-    winning, have = [numbers.split() for numbers in numbers_part.split('|')]
-    return int(card_part.split()[-1]), winning, have
-
-
-def number_of_winnings(winning, have):
-    return sum(1 for n in have if n in winning)
+    card_id, *numbers = [int(n) for n in re.findall(r'(\d+)', line)]
+    wins = len(numbers) - len(set(numbers))
+    return card_id, wins
 
 
 def card_score(card):
@@ -14,14 +13,13 @@ def card_score(card):
 
 def main():
     with open("../../Inputs/04.txt", "r") as f:
-        lines = list(map(parse_line, f.readlines()))
+        cards = list(map(parse_line, f.readlines()))
 
-    winnings = {card_number: number_of_winnings(
-        winning, have) for card_number, winning, have in lines}
+    winnings = {card_id: wins for card_id, wins in cards}
 
     print("Part 1:", sum(map(card_score, winnings.items())))
 
-    copies = {card_number: 1 for card_number, _, _ in lines}
+    copies = {card_number: 1 for card_number, _ in cards}
 
     for card_number, wins in winnings.items():
         for i in range(1, wins + 1):
