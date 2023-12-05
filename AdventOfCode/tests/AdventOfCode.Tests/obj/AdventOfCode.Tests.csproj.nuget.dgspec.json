@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/trulsjakobsen/dev/aoc/AdventOfCode/AdventOfCode.Tests/AdventOfCode.Tests.csproj": {}
+    "/Users/trulsjakobsen/dev/aoc/AdventOfCode/tests/AdventOfCode.Tests/AdventOfCode.Tests.csproj": {}
   },
   "projects": {
-    "/Users/trulsjakobsen/dev/aoc/AdventOfCode/AdventOfCode.csproj": {
+    "/Users/trulsjakobsen/dev/aoc/AdventOfCode/src/AdventOfCode.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/AdventOfCode.csproj",
+        "projectUniqueName": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/src/AdventOfCode.csproj",
         "projectName": "AdventOfCode",
-        "projectPath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/AdventOfCode.csproj",
+        "projectPath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/src/AdventOfCode.csproj",
         "packagesPath": "/Users/trulsjakobsen/.nuget/packages/",
-        "outputPath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/obj/",
+        "outputPath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/src/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/trulsjakobsen/.nuget/NuGet/NuGet.Config"
@@ -67,14 +67,14 @@
         }
       }
     },
-    "/Users/trulsjakobsen/dev/aoc/AdventOfCode/AdventOfCode.Tests/AdventOfCode.Tests.csproj": {
+    "/Users/trulsjakobsen/dev/aoc/AdventOfCode/tests/AdventOfCode.Tests/AdventOfCode.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/AdventOfCode.Tests/AdventOfCode.Tests.csproj",
+        "projectUniqueName": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/tests/AdventOfCode.Tests/AdventOfCode.Tests.csproj",
         "projectName": "AdventOfCode.Tests",
-        "projectPath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/AdventOfCode.Tests/AdventOfCode.Tests.csproj",
+        "projectPath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/tests/AdventOfCode.Tests/AdventOfCode.Tests.csproj",
         "packagesPath": "/Users/trulsjakobsen/.nuget/packages/",
-        "outputPath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/AdventOfCode.Tests/obj/",
+        "outputPath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/tests/AdventOfCode.Tests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/trulsjakobsen/.nuget/NuGet/NuGet.Config"
@@ -89,8 +89,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/trulsjakobsen/dev/aoc/AdventOfCode/AdventOfCode.csproj": {
-                "projectPath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/AdventOfCode.csproj"
+              "/Users/trulsjakobsen/dev/aoc/AdventOfCode/src/AdventOfCode.csproj": {
+                "projectPath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/src/AdventOfCode.csproj"
               }
             }
           }

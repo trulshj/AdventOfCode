@@ -30,11 +30,11 @@ public static class TableElf
         var message =
             elapsedMilliseconds switch
             {
-                < 1 => $"{elapsedMilliseconds:F} ms",
-                < 1_000 => $"{Math.Round(elapsedMilliseconds)} ms",
-                < 60_000 => $"{0.001 * elapsedMilliseconds:F} s",
+                < 1 => $"{elapsedMilliseconds} ms",
+                < 1_000 => $"{elapsedMilliseconds} ms",
+                < 60_000 => $"{0.001 * elapsedMilliseconds} s",
                 _ =>
-                    $"{Math.Floor(elapsedMilliseconds / 60_000)} min {Math.Round(0.001 * (elapsedMilliseconds % 60_000))} s"
+                    $"{Math.Floor(elapsedMilliseconds / 60_000)} min {Math.Round(0.001 * (elapsedMilliseconds % 60_000), 2)} s"
             };
 
         var color = elapsedMilliseconds switch

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jPjTDMGddjgxJW7FUSnWJyBl+xxp2bpw91/MeQtsFsp1bLzg7BBnCkPXuo/3z/FXFBotlPMJH2FVONJyGRI1GQ==",
+  "dgSpecHash": "oM5n+0d+xsS8DqNnvM/7JccZzuYmRAgsHx/A5ME2IE7URNeutZ5OPbWt6aoMC4gR+bdLeYi5ezlvD3EzmTTMyQ==",
   "success": true,
-  "projectFilePath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/AdventOfCode.Tests/AdventOfCode.Tests.csproj",
+  "projectFilePath": "/Users/trulsjakobsen/dev/aoc/AdventOfCode/tests/AdventOfCode.Tests/AdventOfCode.Tests.csproj",
   "expectedPackageFiles": [
     "/Users/trulsjakobsen/.nuget/packages/coverlet.collector/6.0.0/coverlet.collector.6.0.0.nupkg.sha512",
     "/Users/trulsjakobsen/.nuget/packages/microsoft.codecoverage/17.6.0/microsoft.codecoverage.17.6.0.nupkg.sha512",
