@@ -4,7 +4,7 @@ namespace AdventOfCode.Puzzles;
 
 public class Day02 : BaseDay
 {
-    public override string SolvePart1Async()
+    public override int SolvePart1()
     {
         const int maxReds = 12;
         const int maxGreens = 13;
@@ -14,8 +14,7 @@ public class Day02 : BaseDay
 
         return input
             .Where(x => IsPossible(x.pulls))
-            .Sum(x => x.gameId)
-            .ToString();
+            .Sum(x => x.gameId);
 
         bool IsPossible(IEnumerable<string> pulls)
         {
@@ -32,7 +31,7 @@ public class Day02 : BaseDay
     }
 
 
-    public override string SolvePart2Async()
+    public override int SolvePart2()
     {
         var games = InputFileAsLines.Select(ParseLine).Select(x => x.pulls);
         var sum = 0;
@@ -55,7 +54,7 @@ public class Day02 : BaseDay
             sum += maxReds * maxBlues * maxGreens;
         }
 
-        return sum.ToString();
+        return sum;
     }
 
     private static (int gameId, string[] pulls) ParseLine(string line)

@@ -11,7 +11,7 @@ public class Day03 : BaseDay
 
     private List<Symbol> Symbols { get; } = new();
 
-    public override string SolvePart1Async()
+    public override int SolvePart1()
     {
         Grid = new Matrix<char>(InputFileAsLines.Select(line => line.ToCharArray()).ToArray());
 
@@ -24,11 +24,10 @@ public class Day03 : BaseDay
                 Grid.GetNeighbors(symbol.Coord)
                     .Where(coordinate => Numbers.Contains(Grid[coordinate]) && !visited.Contains(coordinate))
                     .Select(coordinate => ScanNumber(coordinate, visited)).Sum())
-            .Sum()
-            .ToString();
+            .Sum();
     }
 
-    public override string SolvePart2Async()
+    public override int SolvePart2()
     {
         var visited = new HashSet<Coordinate>();
 
@@ -40,8 +39,7 @@ public class Day03 : BaseDay
                     .Select(coordinate => ScanNumber(coordinate, visited)).ToArray())
             .Where(numbers => numbers.Length == 2)
             .Select(numbers => numbers[0] * numbers[1])
-            .Sum()
-            .ToString();
+            .Sum();
     }
 
     private int ScanNumber(Coordinate start, ISet<Coordinate> visited)

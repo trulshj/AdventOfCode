@@ -59,7 +59,8 @@ public static class Generator
         var dayTemplate = await File.ReadAllTextAsync(dayTemplatePath);
         var dayContents = dayTemplate
             .Replace("DayXX", dayName)
-            .Replace("namespace AdventOfCode.Templates;", "namespace AdventOfCode.Days;)");
+            .Replace("namespace AdventOfCode.Templates;", "namespace AdventOfCode.Puzzles;")
+            .Replace("using AdventOfCode.Puzzles;", "");
 
         await File.WriteAllTextAsync(dayFilePath, dayContents);
 

@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Puzzles;
@@ -7,7 +6,7 @@ public partial class Day04 : BaseDay
 {
     private List<Card> Cards { get; set; } = new();
 
-    public override string SolvePart1Async()
+    public override int SolvePart1()
     {
         Cards = InputFileAsLines
             .Select(line => CardRegex().Match(line).Groups)
@@ -16,15 +15,14 @@ public partial class Day04 : BaseDay
                 group[2].Captures.Select(capture => int.Parse(capture.Value)).ToArray(),
                 group[3].Captures.Select(capture => int.Parse(capture.Value)).ToArray())).ToList();
 
-        return Cards
+        return (int)Cards
             .Select(card => card.ScratchedNumbers.Count(scratched => card.WinningNumber.Contains(scratched)))
             .Where(count => count > 0)
             .Select(count => Math.Pow(2, count - 1))
-            .Sum()
-            .ToString(CultureInfo.InvariantCulture);
+            .Sum();
     }
 
-    public override string SolvePart2Async()
+    public override int SolvePart2()
     {
         var copies = Cards.ToDictionary(card => card.CardId, _ => 1);
 
@@ -42,8 +40,7 @@ public partial class Day04 : BaseDay
 
         return copies
             .Select(copyCount => copyCount.Value)
-            .Sum()
-            .ToString();
+            .Sum();
     }
 
     [GeneratedRegex(@"Card +(\d+): +(\d+ +)+\|( *\d+)+")]

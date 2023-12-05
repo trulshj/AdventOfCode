@@ -4,12 +4,12 @@ namespace AdventOfCode.Templates;
 
 public class DayXX : BaseDay
 {
-    public override string SolvePart1Async()
+    public override int SolvePart1()
     {
         throw new NotImplementedException();
     }
 
-    public override string SolvePart2Async()
+    public override int SolvePart2()
     {
         throw new NotImplementedException();
     }

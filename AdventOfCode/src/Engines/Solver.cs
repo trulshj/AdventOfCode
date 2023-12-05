@@ -64,14 +64,14 @@ public class Solver
             return;
         }
 
-        var (part1Solution, part1ElapsedTime) = SolvePart(day.SolvePart1Async);
+        var (part1Solution, part1ElapsedTime) = SolvePart(day.SolvePart1);
         Table.AddSolutionRow("1", part1Solution, part1ElapsedTime);
 
-        var (part2Solution, part2ElapsedTime) = SolvePart(day.SolvePart2Async);
+        var (part2Solution, part2ElapsedTime) = SolvePart(day.SolvePart2);
         Table.AddSolutionRow("2", part2Solution, part2ElapsedTime);
     }
 
-    private static (string solution, long elapsedTime) SolvePart(Func<string> partFunction)
+    private static (string solution, long elapsedTime) SolvePart(Func<int> partFunction)
     {
         Stopwatch stopwatch = new();
         string solution;
@@ -79,7 +79,7 @@ public class Solver
         try
         {
             stopwatch.Start();
-            solution = partFunction();
+            solution = partFunction().ToString();
         }
         catch (NotImplementedException)
         {
