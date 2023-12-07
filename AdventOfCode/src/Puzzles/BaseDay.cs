@@ -7,8 +7,8 @@ public abstract class BaseDay
     private static string ClassPrefix => "Day";
     private static string InputFileExtension => ".txt";
     private string InputFileDirectory { get; } = DirectoryElf.GetPath("Inputs");
-    protected string InputFileContents { get; set; } = string.Empty;
-    protected string[] InputFileAsLines { get; set; } = Array.Empty<string>();
+    protected string InputFileContents { get; private set; } = string.Empty;
+    protected string[] InputFileAsLines { get; private set; } = Array.Empty<string>();
 
 
     public uint CalculateProblemIndex()

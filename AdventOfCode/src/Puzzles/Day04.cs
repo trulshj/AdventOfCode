@@ -4,7 +4,7 @@ namespace AdventOfCode.Puzzles;
 
 public partial class Day04 : BaseDay
 {
-    private List<Card> Cards { get; set; } = new();
+    private List<Card> Cards { get; set; } = [];
 
     public override int SolvePart1()
     {
