@@ -11,7 +11,7 @@ public class Day03 : BaseDay
 
     private List<Symbol> Symbols { get; } = new();
 
-    public override int SolvePart1()
+    public override object SolvePart1()
     {
         Grid = new Matrix<char>(InputFileAsLines.Select(line => line.ToCharArray()).ToArray());
 
@@ -27,7 +27,7 @@ public class Day03 : BaseDay
             .Sum();
     }
 
-    public override int SolvePart2()
+    public override object SolvePart2()
     {
         var visited = new HashSet<Coordinate>();
 

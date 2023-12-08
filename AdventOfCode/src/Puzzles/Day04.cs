@@ -6,7 +6,7 @@ public partial class Day04 : BaseDay
 {
     private List<Card> Cards { get; set; } = [];
 
-    public override int SolvePart1()
+    public override object SolvePart1()
     {
         Cards = InputFileAsLines
             .Select(line => CardRegex().Match(line).Groups)
@@ -22,7 +22,7 @@ public partial class Day04 : BaseDay
             .Sum();
     }
 
-    public override int SolvePart2()
+    public override object SolvePart2()
     {
         var copies = Cards.ToDictionary(card => card.CardId, _ => 1);
 

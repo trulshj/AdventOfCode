@@ -87,7 +87,7 @@ public static class Commands
 
         generateCommand.AddAlias("gen");
 
-        generateCommand.SetHandler(async () => await Generator.GenerateNextDay());
+        generateCommand.SetHandler(Generator.GenerateNextDay);
 
         return generateCommand;
     }

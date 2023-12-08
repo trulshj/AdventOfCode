@@ -4,10 +4,10 @@ namespace AdventOfCode.Engines;
 
 public static class Generator
 {
-    public static async Task GenerateNextDay()
+    public static Task GenerateNextDay()
     {
         var dayIndex = GetNextDayIndex();
-        await GenerateDay(dayIndex);
+        return GenerateDay(dayIndex);
     }
 
     private static uint GetNextDayIndex()

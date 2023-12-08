@@ -38,6 +38,6 @@ public abstract class BaseDay
         if (!File.Exists(inputFilePath)) throw new FileNotFoundException($"Input file not found: {inputFilePath}");
     }
 
-    public abstract int SolvePart1();
-    public abstract int SolvePart2();
+    public abstract object SolvePart1();
+    public abstract object SolvePart2();
 }

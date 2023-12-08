@@ -4,7 +4,7 @@ namespace AdventOfCode.Puzzles;
 
 public class Day02 : BaseDay
 {
-    public override int SolvePart1()
+    public override object SolvePart1()
     {
         const int maxReds = 12;
         const int maxGreens = 13;
@@ -31,7 +31,7 @@ public class Day02 : BaseDay
     }
 
 
-    public override int SolvePart2()
+    public override object SolvePart2()
     {
         var games = InputFileAsLines.Select(ParseLine).Select(x => x.pulls);
         var sum = 0;

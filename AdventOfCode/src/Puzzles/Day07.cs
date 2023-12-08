@@ -20,7 +20,7 @@ public class Day07 : BaseDay
             .ToList();
     }
 
-    public override int SolvePart1()
+    public override object SolvePart1()
     {
         ParseInput();
 
@@ -31,12 +31,12 @@ public class Day07 : BaseDay
             .Sum();
     }
 
-    public override int SolvePart2()
+    public override object SolvePart2()
     {
         var jokerHands = Hands.Select(x => x with { HandType = ClassifyHand(x, true) }).ToList();
-        
+
         jokerHands.Sort((hand1, hand2) => CompareHands(hand1, hand2, true));
-        
+
         return jokerHands
             .Select((hand, index) => hand.Bid * (index + 1))
             .Sum();

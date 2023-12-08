@@ -34,7 +34,7 @@ public class Day05 : BaseDay
             ).ToArray();
     }
 
-    public override int SolvePart1()
+    public override object SolvePart1()
     {
         ParseInput();
 
@@ -59,7 +59,7 @@ public class Day05 : BaseDay
         return unchecked((int)minimumLocation);
     }
 
-    public override int SolvePart2()
+    public override object SolvePart2()
     {
         var seeds = new Stack<LongRange>(Seeds.Chunk(2).Select(x => new LongRange(x[0], x[1])));
 

@@ -71,7 +71,7 @@ public class Solver
         Table.AddSolutionRow("2", part2Solution, part2ElapsedTime);
     }
 
-    private static (string solution, long elapsedTime) SolvePart(Func<int> partFunction)
+    private static (string solution, long elapsedTime) SolvePart(Func<object> partFunction)
     {
         Stopwatch stopwatch = new();
         string solution;
@@ -79,7 +79,7 @@ public class Solver
         try
         {
             stopwatch.Start();
-            solution = partFunction().ToString();
+            solution = partFunction().ToString() ?? "Invalid solution";
         }
         catch (NotImplementedException)
         {

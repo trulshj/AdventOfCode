@@ -25,7 +25,7 @@ public partial class Day06 : BaseDay
         return time - lowerBound - lowerBound + 1L;
     }
 
-    public override int SolvePart1()
+    public override object SolvePart1()
     {
         ParseInput();
 
@@ -35,7 +35,7 @@ public partial class Day06 : BaseDay
             .Aggregate(1L, (acc, x) => acc * x);
     }
 
-    public override int SolvePart2()
+    public override object SolvePart2()
     {
         var time = long.Parse(string.Join("", Times));
         var distanceToBeat = long.Parse(string.Join("", Distances));
