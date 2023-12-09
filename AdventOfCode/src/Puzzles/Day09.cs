@@ -15,15 +15,30 @@ public class Day09 : BaseDay
     {
         ParseInput();
 
-        return Numbers.Select(x => FindNext(x) + x.Last()).Sum();
+        return Numbers.Select(FindNext).Sum();
     }
 
     public override object SolvePart2()
     {
-        return Numbers.Select(x => FindPrevious(x) - x.First()).Sum();
+        return Numbers.Select(FindPrevious).Sum();
     }
 
-    private static int FindNext(IEnumerable<int> numbers)
+    private static int FindNext(int[] numbers)
+    {
+        return numbers.Last() + GetDifferences(numbers)
+            .Select(x => x.Last())
+            .Sum();
+    }
+
+    private static int FindPrevious(int[] numbers)
+    {
+        return numbers.First() - GetDifferences(numbers)
+            .Select(x => x.First())
+            .Reverse()
+            .Aggregate(0, (acc, x) => x - acc);
+    }
+
+    private static List<int[]> GetDifferences(IEnumerable<int> numbers)
     {
         var differences = new List<int[]>();
 
@@ -36,27 +51,6 @@ public class Day09 : BaseDay
             currentNumbers = difference;
         }
 
-        return differences.Select(x => x.Last()).Sum();
-    }
-
-    private static int FindPrevious(IEnumerable<int> numbers)
-    {
-        var differences = new List<int[]>();
-
-        var currentNumbers = numbers.Reverse().ToArray();
-
-        Console.WriteLine(string.Join(", ", currentNumbers));
-
-        while (Array.Exists(currentNumbers, x => x != 0))
-        {
-            var difference = currentNumbers.Zip(currentNumbers.Skip(1)).Select(x => x.First - x.Second).ToArray();
-            differences.Add(difference);
-            currentNumbers = difference;
-            Console.WriteLine(string.Join(", ", difference));
-        }
-
-        Console.WriteLine(differences.Select(x => x.Last()).Sum());
-
-        return differences.Select(x => x.Last()).Sum();
+        return differences;
     }
 }
