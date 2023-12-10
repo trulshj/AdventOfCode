@@ -69,6 +69,11 @@ public class Matrix<T>
             if (predicate(_matrix[y][x]))
                 yield return (new Coordinate(y, x), _matrix[y][x]);
     }
+
+    public new string ToString()
+    {
+        return string.Join("\n", _matrix.Select(x => string.Join("", x)));
+    }
 }
 
 public static class MatrixExtensions
@@ -96,5 +101,17 @@ public static class MatrixExtensions
     public static Coordinate[] GetOrthogonalNeighbors<T>(this Matrix<T> matrix, Coordinate coord)
     {
         return OrthogonalDeltas.Select(x => x + coord).Where(matrix.WithinBounds).ToArray();
+    }
+
+    public static (int minY, int maxY, int minX, int maxX) GetBounds(this IEnumerable<Coordinate> coordinates)
+    {
+        var coordArray = coordinates.ToArray();
+
+        var minY = coordArray.Min(x => x.Y);
+        var maxY = coordArray.Max(x => x.Y);
+        var minX = coordArray.Min(x => x.X);
+        var maxX = coordArray.Max(x => x.X);
+
+        return (minY, maxY, minX, maxX);
     }
 }

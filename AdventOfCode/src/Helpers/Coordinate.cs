@@ -1,19 +1,38 @@
 namespace AdventOfCode.Helpers;
 
-public class Coordinate
+public sealed class Coordinate(int y, int x) : IEquatable<Coordinate>
 {
-    public Coordinate(int y, int x)
+    public int X { get; } = x;
+    public int Y { get; } = y;
+
+    public bool Equals(Coordinate? other)
     {
-        Y = y;
-        X = x;
+        if (ReferenceEquals(null, other)) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return X == other.X && Y == other.Y;
     }
 
-    public int X { get; }
-    public int Y { get; }
+    public override bool Equals(object? obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == GetType() && Equals((Coordinate)obj);
+    }
+
 
     public bool WithinBounds(int height, int width)
     {
         return Y >= 0 && Y < height && X >= 0 && X < width;
+    }
+
+    public bool WithinBounds(int minY, int maxY, int minX, int maxX)
+    {
+        return Y >= minY && Y <= maxY && X >= minX && X <= maxX;
+    }
+
+    public bool WithinBounds((int minY, int maxY, int minX, int maxX) bounds)
+    {
+        return WithinBounds(bounds.minY, bounds.maxY, bounds.minX, bounds.maxX);
     }
 
     public static Coordinate operator +(Coordinate a, Coordinate b)
@@ -21,16 +40,16 @@ public class Coordinate
         return new Coordinate(a.Y + b.Y, a.X + b.X);
     }
 
-    // HashSet
-    public override bool Equals(object? obj)
+    public static bool operator ==(Coordinate a, Coordinate b)
     {
-        if (obj is not Coordinate other)
-            return false;
-
-        return Y == other.Y && X == other.X;
+        return a.Equals(b);
     }
 
-    // HashSet
+    public static bool operator !=(Coordinate a, Coordinate b)
+    {
+        return !a.Equals(b);
+    }
+
     public override int GetHashCode()
     {
         return HashCode.Combine(Y, X);
