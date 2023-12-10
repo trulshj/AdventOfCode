@@ -54,4 +54,9 @@ public sealed class Coordinate(int y, int x) : IEquatable<Coordinate>
     {
         return HashCode.Combine(Y, X);
     }
+
+    public override string ToString()
+    {
+        return $"({Y}, {X})";
+    }
 }

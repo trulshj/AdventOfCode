@@ -70,42 +70,33 @@ public class Day10 : BaseDay
 
     public override object SolvePart2()
     {
+        // Get bounding box of loop to avoid checking every coordinate
         var bounds = Loop.GetBounds();
 
-        var ans = Grid
+        return Grid
             .GetCoordinates()
             .Where(x => !Loop.Contains(x) && x.WithinBounds(bounds))
-            .Where(IsContainedByLoop)
-            .ToArray();
-
-        foreach (var cord in Loop) Grid[cord] = ' ';
-        foreach (var coord in ans) Grid[coord] = 'X';
-
-        Console.WriteLine(Grid.ToString());
-
-        return ans.Count();
+            .Count(IsContainedByLoop);
     }
 
     private bool IsContainedByLoop(Coordinate coordinate)
     {
         var rightDelta = new Coordinate(0, 1);
 
-        var currentCoordinate = coordinate + rightDelta;
+        var currentCoordinate = coordinate;
         var topCrossings = 0;
         var bottomCrossings = 0;
 
         while (Grid.WithinBounds(currentCoordinate))
         {
-            if ("|LJ".Contains(Grid[currentCoordinate]))
-                topCrossings++;
-
-            if ("|7F".Contains(Grid[currentCoordinate]))
-                bottomCrossings++;
-
             currentCoordinate += rightDelta;
+            if (!Loop.Contains(currentCoordinate)) continue;
+
+            if ("|LJ".Contains(Grid[currentCoordinate])) topCrossings++;
+
+            if ("|7F".Contains(Grid[currentCoordinate])) bottomCrossings++;
         }
 
-
-        return topCrossings - bottomCrossings % 2 == 0 && Math.Min(topCrossings, bottomCrossings) % 2 == 1;
+        return (topCrossings - bottomCrossings) % 2 == 0 && Math.Min(topCrossings, bottomCrossings) % 2 == 1;
     }
 }
