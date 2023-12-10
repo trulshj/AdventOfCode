@@ -1,38 +1,31 @@
 namespace AdventOfCode.Helpers;
 
-public class Matrix<T>
+public class Matrix<T>(IList<T[]> matrix)
 {
-    private readonly T[][] _matrix;
-
-    public Matrix(T[][] matrix)
-    {
-        _matrix = matrix;
-    }
-
-    public int Height => _matrix.Length;
-    public int Width => _matrix[0].Length;
+    public int Height => matrix.Count;
+    public int Width => matrix[0].Length;
 
     public T[] this[int y]
     {
-        get => _matrix[y];
-        set => _matrix[y] = value;
+        get => matrix[y];
+        set => matrix[y] = value;
     }
 
     public T this[Coordinate coord]
     {
-        get => _matrix[coord.Y][coord.X];
-        set => _matrix[coord.Y][coord.X] = value;
+        get => matrix[coord.Y][coord.X];
+        set => matrix[coord.Y][coord.X] = value;
     }
 
 
     public T Get(Coordinate coord)
     {
-        return _matrix[coord.Y][coord.X];
+        return matrix[coord.Y][coord.X];
     }
 
     public T Get(int y, int x)
     {
-        return _matrix[y][x];
+        return matrix[y][x];
     }
 
     public bool WithinBounds(Coordinate coord)
@@ -51,28 +44,60 @@ public class Matrix<T>
     {
         for (var y = 0; y < Height; y++)
         for (var x = 0; x < Width; x++)
-            if (predicate(_matrix[y][x]))
+            if (predicate(matrix[y][x]))
                 yield return new Coordinate(y, x);
     }
 
-    public IEnumerable<(Coordinate, T)> GetCoordinatesAndValues()
+    public IEnumerable<Coordinate> GetCoordinates(Func<Coordinate, bool> predicate)
     {
         for (var y = 0; y < Height; y++)
         for (var x = 0; x < Width; x++)
-            yield return (new Coordinate(y, x), _matrix[y][x]);
+            if (predicate(new Coordinate(y, x)))
+                yield return new Coordinate(y, x);
+    }
+
+    public IEnumerable<Coordinate> GetCoordinates(Func<Coordinate, T, bool> predicate)
+    {
+        for (var y = 0; y < Height; y++)
+        for (var x = 0; x < Width; x++)
+            if (predicate(new Coordinate(y, x), matrix[y][x]))
+                yield return new Coordinate(y, x);
+    }
+
+    public IEnumerable<(Coordinate coordinate, T value)> GetCoordinatesAndValues()
+    {
+        for (var y = 0; y < Height; y++)
+        for (var x = 0; x < Width; x++)
+            yield return (new Coordinate(y, x), matrix[y][x]);
     }
 
     public IEnumerable<(Coordinate coordinate, T value)> GetCoordinatesAndValues(Func<T, bool> predicate)
     {
         for (var y = 0; y < Height; y++)
         for (var x = 0; x < Width; x++)
-            if (predicate(_matrix[y][x]))
-                yield return (new Coordinate(y, x), _matrix[y][x]);
+            if (predicate(matrix[y][x]))
+                yield return (new Coordinate(y, x), matrix[y][x]);
+    }
+
+    public IEnumerable<(Coordinate coordinate, T value)> GetCoordinatesAndValues(Func<Coordinate, bool> predicate)
+    {
+        for (var y = 0; y < Height; y++)
+        for (var x = 0; x < Width; x++)
+            if (predicate(new Coordinate(y, x)))
+                yield return (new Coordinate(y, x), matrix[y][x]);
+    }
+
+    public IEnumerable<(Coordinate coordinate, T value)> GetCoordinatesAndValues(Func<Coordinate, T, bool> predicate)
+    {
+        for (var y = 0; y < Height; y++)
+        for (var x = 0; x < Width; x++)
+            if (predicate(new Coordinate(y, x), matrix[y][x]))
+                yield return (new Coordinate(y, x), matrix[y][x]);
     }
 
     public new string ToString()
     {
-        return string.Join("\n", _matrix.Select(x => string.Join("", x)));
+        return string.Join("\n", matrix.Select(x => string.Join("", x)));
     }
 }
 
@@ -93,14 +118,14 @@ public static class MatrixExtensions
         new(1, 0)
     };
 
-    public static Coordinate[] GetNeighbors<T>(this Matrix<T> matrix, Coordinate coord)
+    public static IEnumerable<Coordinate> GetNeighbors<T>(this Matrix<T> matrix, Coordinate coord)
     {
-        return Deltas.Select(x => x + coord).Where(matrix.WithinBounds).ToArray();
+        return Deltas.Select(x => x + coord).Where(matrix.WithinBounds);
     }
 
-    public static Coordinate[] GetOrthogonalNeighbors<T>(this Matrix<T> matrix, Coordinate coord)
+    public static IEnumerable<Coordinate> GetOrthogonalNeighbors<T>(this Matrix<T> matrix, Coordinate coord)
     {
-        return OrthogonalDeltas.Select(x => x + coord).Where(matrix.WithinBounds).ToArray();
+        return OrthogonalDeltas.Select(x => x + coord).Where(matrix.WithinBounds);
     }
 
     public static (int minY, int maxY, int minX, int maxX) GetBounds(this IEnumerable<Coordinate> coordinates)
