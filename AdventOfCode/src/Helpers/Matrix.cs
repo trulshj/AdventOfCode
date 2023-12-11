@@ -111,6 +111,9 @@ public class Matrix<T>(List<List<T>> matrix)
         }
     }
 
+    /// <summary>
+    ///     Get the indexes of columns where all values match the predicate
+    /// </summary>
     public IEnumerable<int> GetColumnIndexes(Func<T, bool> predicate)
     {
         for (var x = 0; x < Width; x++)
@@ -132,6 +135,9 @@ public class Matrix<T>(List<List<T>> matrix)
         }
     }
 
+    /// <summary>
+    ///     Get the indexes of rows where all values match the predicate
+    /// </summary>
     public IEnumerable<int> GetRowIndexes(Func<T, bool> predicate)
     {
         for (var y = 0; y < Height; y++)
