@@ -1,11 +1,11 @@
 namespace AdventOfCode.Helpers;
 
-public class Matrix<T>(IList<T[]> matrix)
+public class Matrix<T>(List<List<T>> matrix)
 {
     public int Height => matrix.Count;
-    public int Width => matrix[0].Length;
+    public int Width => matrix[0].Count;
 
-    public T[] this[int y]
+    public List<T> this[int y]
     {
         get => matrix[y];
         set => matrix[y] = value;
@@ -15,6 +15,11 @@ public class Matrix<T>(IList<T[]> matrix)
     {
         get => matrix[coord.Y][coord.X];
         set => matrix[coord.Y][coord.X] = value;
+    }
+
+    public static Matrix<T> Empty()
+    {
+        return new Matrix<T>([]);
     }
 
 
@@ -93,6 +98,68 @@ public class Matrix<T>(IList<T[]> matrix)
         for (var x = 0; x < Width; x++)
             if (predicate(new Coordinate(y, x), matrix[y][x]))
                 yield return (new Coordinate(y, x), matrix[y][x]);
+    }
+
+    public IEnumerable<T[]> GetColumns(Func<T, bool> predicate)
+    {
+        for (var x = 0; x < Width; x++)
+        {
+            var x1 = x;
+            var column = matrix.Select(y => y[x1]).ToArray();
+            if (Array.TrueForAll(column, val => predicate(val)))
+                yield return column.ToArray();
+        }
+    }
+
+    public IEnumerable<int> GetColumnIndexes(Func<T, bool> predicate)
+    {
+        for (var x = 0; x < Width; x++)
+        {
+            var x1 = x;
+            var column = matrix.Select(y => y[x1]).ToArray();
+            if (Array.TrueForAll(column, val => predicate(val)))
+                yield return x;
+        }
+    }
+
+    public IEnumerable<T[]> GetRows(Func<T, bool> predicate)
+    {
+        for (var y = 0; y < Height; y++)
+        {
+            var row = matrix[y];
+            if (row.TrueForAll(x => predicate(x)))
+                yield return row.ToArray();
+        }
+    }
+
+    public IEnumerable<int> GetRowIndexes(Func<T, bool> predicate)
+    {
+        for (var y = 0; y < Height; y++)
+        {
+            var row = matrix[y];
+            if (row.TrueForAll(val => predicate(val)))
+                yield return y;
+        }
+    }
+
+    public void InsertRow(int index, List<T> row)
+    {
+        matrix.Insert(index, row);
+    }
+
+    public void InsertRow(int index, T value)
+    {
+        InsertRow(index, Enumerable.Repeat(value, Width).ToList());
+    }
+
+    public void InsertColumn(int index, List<T> column)
+    {
+        for (var y = 0; y < Height; y++) matrix[y].Insert(index, column[y]);
+    }
+
+    public void InsertColumn(int index, T value)
+    {
+        InsertColumn(index, Enumerable.Repeat(value, Height).ToList());
     }
 
     public new string ToString()

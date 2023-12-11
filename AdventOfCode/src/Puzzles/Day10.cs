@@ -21,7 +21,7 @@ public class Day10 : BaseDay
 
     private void ParseInput()
     {
-        Grid = new Matrix<char>(InputFileAsLines.Select(line => line.ToCharArray()).ToArray());
+        Grid = new Matrix<char>(InputFileAsLines.Select(line => line.ToList()).ToList());
     }
 
     private Coordinate[] GetNeighbors(Coordinate coordinate)

@@ -13,7 +13,7 @@ public class Day03 : BaseDay
 
     public override object SolvePart1()
     {
-        Grid = new Matrix<char>(InputFileAsLines.Select(line => line.ToCharArray()).ToArray());
+        Grid = new Matrix<char>(InputFileAsLines.Select(line => line.ToList()).ToList());
 
         Symbols.AddRange(Grid.GetCoordinatesAndValues(x => !NotSymbols.Contains(x))
             .Select(x => new Symbol(x.value, x.coordinate)));

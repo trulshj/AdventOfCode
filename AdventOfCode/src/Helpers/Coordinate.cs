@@ -19,6 +19,11 @@ public sealed class Coordinate(int y, int x) : IEquatable<Coordinate>
         return obj.GetType() == GetType() && Equals((Coordinate)obj);
     }
 
+    public int ManhattanDistance(Coordinate other)
+    {
+        return Math.Abs(X - other.X) + Math.Abs(Y - other.Y);
+    }
+
 
     public bool WithinBounds(int height, int width)
     {
