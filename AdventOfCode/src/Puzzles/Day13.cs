@@ -36,7 +36,7 @@ public class Day13 : BaseDay
 
         int FindMirror(string[] block)
         {
-            return CheckBlocks(block, (above, below) => above.Zip(below).All(x => x.First == x.Second));
+            return CheckBlocks(block, (above, below) => above.Zip(below).All(pair => pair.First == pair.Second));
         }
     }
 
@@ -47,9 +47,7 @@ public class Day13 : BaseDay
         int FindSmudge(string[] block)
         {
             return CheckBlocks(block, (above, below) =>
-                above.Zip(below, (a, b) =>
-                        a.Zip(b, (charA, charB) => charA == charB ? 0 : 1).Sum())
-                    .Sum() == 1);
+                above.Zip(below, (a, b) => a.Zip(b).Count(pair => pair.First != pair.Second)).Sum() == 1);
         }
     }
 }
