@@ -7,7 +7,7 @@ public partial class Day06 : BaseDay
     private long[] Times { get; set; } = Array.Empty<long>();
     private long[] Distances { get; set; } = Array.Empty<long>();
 
-    private void ParseInput()
+    protected override void ParseInput()
     {
         var numberLines = InputFileAsLines
             .Select(line => Numbers().Matches(line)
@@ -25,22 +25,20 @@ public partial class Day06 : BaseDay
         return time - lowerBound - lowerBound + 1L;
     }
 
-    public override object SolvePart1()
+    protected override object SolvePartOne()
     {
-        ParseInput();
-
-        return (int)Times
+        return Times
             .Zip(Distances)
             .Select(x => FindPossibleStarts(x.First, x.Second))
             .Aggregate(1L, (acc, x) => acc * x);
     }
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
         var time = long.Parse(string.Join("", Times));
         var distanceToBeat = long.Parse(string.Join("", Distances));
 
-        return (int)FindPossibleStarts(time, distanceToBeat);
+        return FindPossibleStarts(time, distanceToBeat);
     }
 
     [GeneratedRegex(@"(\d+)")]

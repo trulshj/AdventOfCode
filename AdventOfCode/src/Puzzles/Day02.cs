@@ -4,15 +4,15 @@ namespace AdventOfCode.Puzzles;
 
 public class Day02 : BaseDay
 {
-    public override object SolvePart1()
+    private (int gameId, string[] pulls)[] Games { get; set; } = [];
+
+    protected override object SolvePartOne()
     {
         const int maxReds = 12;
         const int maxGreens = 13;
         const int maxBlues = 14;
 
-        var input = InputFileAsLines.Select(ParseLine).ToArray();
-
-        return input
+        return Games
             .Where(x => IsPossible(x.pulls))
             .Sum(x => x.gameId);
 
@@ -31,12 +31,11 @@ public class Day02 : BaseDay
     }
 
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
-        var games = InputFileAsLines.Select(ParseLine).Select(x => x.pulls);
         var sum = 0;
 
-        foreach (var pulls in games)
+        foreach (var pulls in Games.Select(x => x.pulls))
         {
             var maxReds = 0;
             var maxGreens = 0;
@@ -57,12 +56,15 @@ public class Day02 : BaseDay
         return sum;
     }
 
-    private static (int gameId, string[] pulls) ParseLine(string line)
+    protected override void ParseInput()
     {
-        var parts = line.Split(": ");
-        var gameId = Convert.ToInt32(parts[0].Split(" ").Last());
-        var pulls = parts[1].Split("; ");
-        return (gameId, pulls);
+        Games = InputFileAsLines.Select(line =>
+        {
+            var parts = line.Split(": ");
+            var gameId = Convert.ToInt32(parts[0].Split(" ").Last());
+            var pulls = parts[1].Split("; ");
+            return (gameId, pulls);
+        }).ToArray();
     }
 
     private static Regex GetColor(string color)

@@ -7,7 +7,7 @@ public class Day05 : BaseDay
     private Map[][] Categories { get; set; } = Array.Empty<Map[]>();
     private long[] Seeds { get; set; } = Array.Empty<long>();
 
-    private void ParseInput()
+    protected override void ParseInput()
     {
         var blocks = InputFileContents
             .Split("\n\n")
@@ -34,10 +34,8 @@ public class Day05 : BaseDay
             ).ToArray();
     }
 
-    public override object SolvePart1()
+    protected override object SolvePartOne()
     {
-        ParseInput();
-
         var minimumLocation = long.MaxValue;
 
         foreach (var seed in Seeds)
@@ -59,7 +57,7 @@ public class Day05 : BaseDay
         return unchecked((int)minimumLocation);
     }
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
         var seeds = new Stack<LongRange>(Seeds.Chunk(2).Select(x => new LongRange(x[0], x[1])));
 

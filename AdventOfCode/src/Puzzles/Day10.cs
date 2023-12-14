@@ -19,7 +19,7 @@ public class Day10 : BaseDay
     private Matrix<char> Grid { get; set; } = null!;
     private HashSet<Coordinate> Loop { get; set; } = null!;
 
-    private void ParseInput()
+    protected override void ParseInput()
     {
         Grid = new Matrix<char>(InputFileAsLines.Select(line => line.ToList()).ToList());
     }
@@ -56,7 +56,7 @@ public class Day10 : BaseDay
         return null;
     }
 
-    public override object SolvePart1()
+    protected override object SolvePartOne()
     {
         ParseInput();
 
@@ -68,7 +68,7 @@ public class Day10 : BaseDay
         return Loop.Count / 2;
     }
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
         // Get bounding box of loop to avoid checking every coordinate
         var bounds = Loop.GetBounds();

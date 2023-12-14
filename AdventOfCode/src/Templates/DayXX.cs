@@ -4,12 +4,16 @@ namespace AdventOfCode.Templates;
 
 public class DayXX : BaseDay
 {
-    public override object SolvePart1()
+    protected override void ParseInput()
+    {
+    }
+
+    protected override object SolvePartOne()
     {
         throw new NotImplementedException();
     }
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
         throw new NotImplementedException();
     }

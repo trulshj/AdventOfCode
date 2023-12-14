@@ -9,6 +9,7 @@ public abstract class BaseDay
     private string InputFileDirectory { get; } = DirectoryElf.GetPath("Inputs");
     protected string InputFileContents { get; private set; } = string.Empty;
     protected string[] InputFileAsLines { get; private set; } = Array.Empty<string>();
+    private bool IsInputParsed { get; set; } = false;
 
 
     public uint CalculateProblemIndex()
@@ -28,7 +29,6 @@ public abstract class BaseDay
     private string InputFilePath()
     {
         var problemIndex = CalculateProblemIndex();
-
         return Path.Combine(InputFileDirectory, $"{problemIndex:D2}{InputFileExtension}");
     }
 
@@ -38,6 +38,31 @@ public abstract class BaseDay
         if (!File.Exists(inputFilePath)) throw new FileNotFoundException($"Input file not found: {inputFilePath}");
     }
 
-    public abstract object SolvePart1();
-    public abstract object SolvePart2();
+    protected abstract void ParseInput();
+
+    private void EnsureInputParsed()
+    {
+        if (!IsInputParsed)
+        {
+            CheckInputFileExists();
+            LoadInputFileContents();
+            ParseInput();
+            IsInputParsed = true;
+        }
+    }
+    
+    public object SolvePart1()
+    {
+        EnsureInputParsed();
+        return SolvePartOne();
+    }
+    
+    public object SolvePart2()
+    {
+        EnsureInputParsed();
+        return SolvePartTwo();
+    }
+
+    protected abstract object SolvePartOne();
+    protected abstract object SolvePartTwo();
 }

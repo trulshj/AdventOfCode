@@ -6,7 +6,7 @@ public class Day12 : BaseDay
 
     private Nonogram[] Nonograms { get; set; } = [];
 
-    private void ParseInput()
+    protected override void ParseInput()
     {
         Nonograms = InputFileAsLines.Select(x =>
         {
@@ -53,14 +53,14 @@ public class Day12 : BaseDay
     }
 
 
-    public override object SolvePart1()
+    protected override object SolvePartOne()
     {
         ParseInput();
 
         return Nonograms.Sum(x => GetArrangements(x.Pattern, x.Numbers));
     }
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
         return Nonograms
             .Select(x => new Nonogram(

@@ -11,7 +11,7 @@ public class Day07 : BaseDay
         return Array.IndexOf(joker ? _jokerCardValues : _cardValues, cardType);
     }
 
-    private void ParseInput()
+    protected override void ParseInput()
     {
         Hands = InputFileAsLines
             .Select(line => line.Split(" "))
@@ -20,7 +20,7 @@ public class Day07 : BaseDay
             .ToList();
     }
 
-    public override object SolvePart1()
+    protected override object SolvePartOne()
     {
         ParseInput();
 
@@ -31,7 +31,7 @@ public class Day07 : BaseDay
             .Sum();
     }
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
         var jokerHands = Hands.Select(x => x with { HandType = ClassifyHand(x, true) }).ToList();
 

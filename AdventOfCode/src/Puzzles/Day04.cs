@@ -6,7 +6,7 @@ public partial class Day04 : BaseDay
 {
     private List<Card> Cards { get; set; } = [];
 
-    public override object SolvePart1()
+    protected override void ParseInput()
     {
         Cards = InputFileAsLines
             .Select(line => CardRegex().Match(line).Groups)
@@ -14,15 +14,18 @@ public partial class Day04 : BaseDay
                 int.Parse(group[1].Value),
                 group[2].Captures.Select(capture => int.Parse(capture.Value)).ToArray(),
                 group[3].Captures.Select(capture => int.Parse(capture.Value)).ToArray())).ToList();
+    }
 
-        return (int)Cards
+    protected override object SolvePartOne()
+    {
+        return Cards
             .Select(card => card.ScratchedNumbers.Count(scratched => card.WinningNumber.Contains(scratched)))
             .Where(count => count > 0)
             .Select(count => Math.Pow(2, count - 1))
             .Sum();
     }
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
         var copies = Cards.ToDictionary(card => card.CardId, _ => 1);
 

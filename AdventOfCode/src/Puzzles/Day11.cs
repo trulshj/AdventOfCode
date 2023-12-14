@@ -8,7 +8,7 @@ public class Day11 : BaseDay
     private int[] EmptyColumns { get; set; } = [];
     private int[] EmptyRows { get; set; } = [];
 
-    private void ParseInput()
+    protected override void ParseInput()
     {
         var space = new Matrix<char>(InputFileAsLines.Select(x => x.ToList()).ToList());
         EmptyColumns = space.GetColumnIndexes(x => x == '.').ToArray();
@@ -16,14 +16,14 @@ public class Day11 : BaseDay
         Galaxies = space.GetCoordinates(x => x == '#').ToList();
     }
 
-    public override object SolvePart1()
+    protected override object SolvePartOne()
     {
         ParseInput();
 
         return GetDistances(2L);
     }
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
         return GetDistances(1_000_000L);
     }

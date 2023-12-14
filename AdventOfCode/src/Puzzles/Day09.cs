@@ -4,21 +4,21 @@ public class Day09 : BaseDay
 {
     private int[][] Numbers { get; set; } = Array.Empty<int[]>();
 
-    private void ParseInput()
+    protected override void ParseInput()
     {
         Numbers = InputFileAsLines
             .Select(line => line.Split(" ").Select(int.Parse).ToArray())
             .ToArray();
     }
 
-    public override object SolvePart1()
+    protected override object SolvePartOne()
     {
         ParseInput();
 
         return Numbers.Select(FindNext).Sum();
     }
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
         return Numbers.Select(FindPrevious).Sum();
     }

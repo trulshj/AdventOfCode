@@ -8,7 +8,7 @@ public partial class Day08 : BaseDay
     private Dictionary<string, (string left, string right)> Paths { get; } = new();
     private string Directions { get; set; } = string.Empty;
 
-    private void ParseInput()
+    protected override void ParseInput()
     {
         Directions = InputFileAsLines[0];
         foreach (var line in InputFileAsLines.Skip(2))
@@ -18,14 +18,14 @@ public partial class Day08 : BaseDay
         }
     }
 
-    public override object SolvePart1()
+    protected override object SolvePartOne()
     {
         ParseInput();
 
         return FindCycleLength("AAA");
     }
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
         return Paths.Keys
             .Where(x => x.EndsWith('A'))

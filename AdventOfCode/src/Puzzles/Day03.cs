@@ -11,13 +11,16 @@ public class Day03 : BaseDay
 
     private List<Symbol> Symbols { get; } = new();
 
-    public override object SolvePart1()
+    protected override void ParseInput()
     {
         Grid = new Matrix<char>(InputFileAsLines.Select(line => line.ToList()).ToList());
 
         Symbols.AddRange(Grid.GetCoordinatesAndValues(x => !NotSymbols.Contains(x))
             .Select(x => new Symbol(x.value, x.coordinate)));
+    }
 
+    protected override object SolvePartOne()
+    {
         var visited = new HashSet<Coordinate>();
 
         return Symbols.Select(symbol =>
@@ -27,7 +30,7 @@ public class Day03 : BaseDay
             .Sum();
     }
 
-    public override object SolvePart2()
+    protected override object SolvePartTwo()
     {
         var visited = new HashSet<Coordinate>();
 
