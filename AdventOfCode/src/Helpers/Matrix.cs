@@ -2,8 +2,33 @@ namespace AdventOfCode.Helpers;
 
 public class Matrix<T>(IList<List<T>> matrix)
 {
+    private Coordinate? _bottomLeft;
+    private Coordinate? _bottomRight;
+    private Coordinate? _topLeft;
+    private Coordinate? _topRight;
     public int Height => matrix.Count;
     public int Width => matrix[0].Count;
+
+    public Coordinate TopLeft
+    {
+        get { return _topLeft ??= new Coordinate(0, 0); }
+    }
+
+    public Coordinate TopRight
+    {
+        get { return _topRight ??= new Coordinate(0, Width - 1); }
+    }
+
+    public Coordinate BottomLeft
+    {
+        get { return _bottomLeft ??= new Coordinate(Height - 1, 0); }
+    }
+
+    public Coordinate BottomRight
+    {
+        get { return _bottomRight ??= new Coordinate(Height - 1, Width - 1); }
+    }
+
 
     public List<T> this[int y]
     {
@@ -168,7 +193,7 @@ public class Matrix<T>(IList<List<T>> matrix)
         InsertColumn(index, Enumerable.Repeat(value, Height).ToList());
     }
 
-    public new string ToString()
+    public override string ToString()
     {
         return string.Join("\n", matrix.Select(x => string.Join("", x)));
     }
