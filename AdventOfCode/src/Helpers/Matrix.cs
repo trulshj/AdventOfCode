@@ -1,6 +1,6 @@
 namespace AdventOfCode.Helpers;
 
-public class Matrix<T>(List<List<T>> matrix)
+public class Matrix<T>(IList<List<T>> matrix)
 {
     public int Height => matrix.Count;
     public int Width => matrix[0].Count;
@@ -171,6 +171,37 @@ public class Matrix<T>(List<List<T>> matrix)
     public new string ToString()
     {
         return string.Join("\n", matrix.Select(x => string.Join("", x)));
+    }
+
+    public Matrix<T> Clone()
+    {
+        return new Matrix<T>(matrix.Select(x => x.ToList()).ToList());
+    }
+
+    public Matrix<T> Transpose()
+    {
+        var newMatrix =
+            new Matrix<T>(Enumerable.Repeat(Enumerable.Repeat(default(T)!, Height).ToList(), Width).ToList());
+        for (var y = 0; y < Height; y++)
+        for (var x = 0; x < Width; x++)
+            newMatrix[x][y] = matrix[y][x];
+        return newMatrix;
+    }
+
+    public Matrix<T> HorizontalFlip()
+    {
+        var newMatrix =
+            new Matrix<T>(Enumerable.Repeat(Enumerable.Repeat(default(T)!, Height).ToList(), Width).ToList());
+        for (var y = 0; y < Height; y++)
+        for (var x = 0; x < Width; x++)
+            newMatrix[y][x] = matrix[y][Width - x - 1];
+        return newMatrix;
+    }
+
+    public Matrix<T> HorizontalFlipInplace()
+    {
+        for (var y = 0; y < Height; y++) matrix[y].Reverse();
+        return this;
     }
 }
 

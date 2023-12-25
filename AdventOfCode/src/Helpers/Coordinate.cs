@@ -2,6 +2,13 @@ namespace AdventOfCode.Helpers;
 
 public sealed class Coordinate(int y, int x) : IEquatable<Coordinate>
 {
+    public static readonly Coordinate RightDelta = new(0, 1);
+    public static readonly Coordinate LeftDelta = new(0, -1);
+    public static readonly Coordinate UpDelta = new(-1, 0);
+    public static readonly Coordinate DownDelta = new(1, 0);
+    public static readonly Coordinate[] OrthogonalDeltas = [UpDelta, DownDelta, LeftDelta, RightDelta];
+
+
     public int X { get; } = x;
     public int Y { get; } = y;
 
