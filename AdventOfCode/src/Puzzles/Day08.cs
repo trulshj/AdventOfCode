@@ -20,8 +20,6 @@ public partial class Day08 : BaseDay
 
     protected override object SolvePartOne()
     {
-        ParseInput();
-
         return FindCycleLength("AAA");
     }
 
