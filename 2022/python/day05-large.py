@@ -1,5 +1,5 @@
 from re import match
-from time import time
+from tqdm import tqdm
 import linecache
 import sys
 
@@ -30,18 +30,22 @@ def main():
     commands = get_commands()
 
     print("Moving Crates...")
-    crates_start_time = time()
 
-    for idx, command in enumerate(commands, start=1):
-        print_progress(idx, COMMAND_LINES, crates_start_time)
-
+    for command in tqdm(commands, ascii=True):
         amount, source, target = command
 
         x = len(stacks[source-1]) - amount
         stacks[target-1] += stacks[source-1][x:]
         stacks[source-1] = stacks[source-1][:x]
 
-    sys.stdout.write("\n")
+    print("Top Crates Read:", get_word(stacks))
+
+
+def get_word(stacks):
+    word = ""
+    for stack in stacks:
+        word += stack[-1]
+    return word
 
 
 def get_stacks():
@@ -50,22 +54,13 @@ def get_stacks():
         stacks = [[] for _ in range(9)]
 
         print("Assembling Crate Stacks...")
-        stacks_start_time = time()
 
-        for n, row in enumerate(crates, start=1):
-            print_progress(n, CRATE_LINES, stacks_start_time)
+        for row in tqdm(crates, ascii=True):
             for idx, crate in enumerate(row[1::4]):
                 if crate != " ":
                     stacks[idx].append(crate)
 
-        sys.stdout.write("\n")
-
         return stacks
-
-
-def print_progress(current, total, start_time):
-    sys.stdout.write(
-        f"\rProgress: {current}/{total}, {(current)*100/(total):.4f}%, {time()-start_time:.2f}s")
 
 
 def parse_command(line) -> Command:
@@ -73,7 +68,8 @@ def parse_command(line) -> Command:
 
 
 def get_commands():
-    return (parse_command(linecache.getline(FILENAME, line)) for line in range(TOTAL_LINES-COMMAND_LINES+1, TOTAL_LINES+1))
+    print("Parsing Crane Commands")
+    return [parse_command(linecache.getline(FILENAME, line)) for line in tqdm(range(TOTAL_LINES-COMMAND_LINES+1, TOTAL_LINES+1), ascii=True)]
 
 
 if __name__ == "__main__":
