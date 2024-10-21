@@ -1,4 +1,4 @@
-from math import sqrt, ceil
+from math import sqrt, ceil, gcd, lcm
 from functools import cache
 from time import time
 
@@ -49,7 +49,7 @@ def fast_primes(n):
     return prime_cache
 
 
-SIEVE_SIZE = 10_000_000
+SIEVE_SIZE = 1_000
 # primes = [i for i in range(2, 10_000_000) if is_prime(i)]
 primes = fast_primes(SIEVE_SIZE)
 sieve = [True] * SIEVE_SIZE
@@ -78,8 +78,42 @@ def g(n):
     return result
 
 
-for i in range(1, len(primes)+1):
-    print(f"n: {i}, p_n: {primes[i-1]}, remainder: {f(i)}")
+class Fraction:
+    def __init__(self, numerator, denominator):
+        self.numerator = numerator
+        self.denominator = denominator
+        
+    def __repr__(self):
+        return f"{self.numerator}/{self.denominator}"
+    
+    def __mul__(self, other):
+        numerator = self.numerator * other.numerator
+        denominator = self.denominator * other.denominator
+        divisor = gcd(numerator, denominator)
+        return Fraction(numerator // divisor, denominator // divisor)
+    
+    def __sub__(self, other):
+        numerator = self.numerator * other.denominator - other.numerator * self.denominator
+        denominator = self.denominator * other.denominator
+        divisor = gcd(numerator, denominator)
+        return Fraction(numerator // divisor, denominator // divisor)
+    
+    def decimal(self):
+        return self.numerator / self.denominator
 
 
-print("Execution time:", time() - start_time)
+def calculate_fraction(primes: list[int]):
+    result = Fraction(1, 1)
+    for i in range(len(primes)):
+        result *= Fraction(primes[i] - 1, primes[i])
+        yield result
+    
+
+
+# for i in range(1, len(primes)+1):
+#     print(f"n: {i}, p_n: {primes[i-1]}, remainder: {f(i)}")
+
+for i, fraction in enumerate(calculate_fraction(primes), 1):
+    print(f"n: {i}, fraction: {fraction}, decimal: {fraction.decimal()}")
+
+print("Execution time:", time() - start_time, "seconds")
