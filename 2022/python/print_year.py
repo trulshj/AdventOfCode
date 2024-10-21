@@ -6,13 +6,13 @@ import day05
 import day06
 import day07
 import day08
-# import day09
-# import day10
-# import day11
-# import day12
+import day09
+import day10
+import day11
+import day12
 # import day13
 # import day14
-# import day15
+import day15
 # import day16
 # import day17
 # import day18
@@ -35,13 +35,13 @@ if __name__ == "__main__":
         day06,
         day07,
         day08,
-        # day09,
-        # day10,
-        # day11,
-        # day12,
+        day09,
+        day10,
+        day11,
+        day12,
         # day13,
         # day14,
-        # day15,
+        day15,
         # day16,
         # day17,
         # day18,
