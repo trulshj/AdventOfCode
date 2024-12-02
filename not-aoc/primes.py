@@ -79,7 +79,7 @@ def g(n):
 
 
 class Fraction:
-    def __init__(self, numerator, denominator):
+    def __init__(self, numerator: int, denominator: int):
         self.numerator = numerator
         self.denominator = denominator
         
@@ -88,6 +88,12 @@ class Fraction:
     
     def __mul__(self, other):
         numerator = self.numerator * other.numerator
+        denominator = self.denominator * other.denominator
+        divisor = gcd(numerator, denominator)
+        return Fraction(numerator // divisor, denominator // divisor)
+    
+    def __add__(self, other):
+        numerator = self.numerator * other.denominator + other.numerator * self.denominator
         denominator = self.denominator * other.denominator
         divisor = gcd(numerator, denominator)
         return Fraction(numerator // divisor, denominator // divisor)
