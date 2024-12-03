@@ -1,20 +1,17 @@
 import re
+from math import prod
 
-
-def read_input():
-    with open("input03.txt") as f:
-        return f.read().rstrip()
-
-
-def calculate_mul(mul: str):
-    l, r = mul[4:-1].split(',')
-    return int(l) * int(r)
-
-
-memory = read_input()
+with open("input03.txt") as f:
+    memory = f.read().rstrip()
 
 muls = re.findall(r"mul\(\d+,\d+\)", memory)
+
+
+def calculate_mul(x): return prod(map(int, x[4:-1].split(",")))
+
+
 print("Part 1:", sum(map(calculate_mul, muls)))
+
 
 instructions = re.findall(r"(mul\(\d+,\d+\))|(do\(\))|(don't\(\))", memory)
 
