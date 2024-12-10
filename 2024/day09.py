@@ -44,20 +44,12 @@ def checksum(disk):
 def flatten(x): return [item for sublist in x for item in sublist]
 
 
-def part1():
-    disk = create_disk(disk_map)
+def solve(disk_function):
+    disk = disk_function(disk_map)
     defrag(disk)
     disk_image = generate_disk_image(disk)
-    print("Part 1:", checksum(disk_image))
+    return checksum(disk_image)
 
 
-def part2():
-    blocks = create_blocks(disk_map)
-    defrag(blocks)
-    disk_image = generate_disk_image(blocks)
-    print("Part 2:", checksum(disk_image))
-
-
-if __name__ == "__main__":
-    part1()
-    part2()
+print("Part 1:", solve(create_disk))
+print("Part 2:", solve(create_blocks))
