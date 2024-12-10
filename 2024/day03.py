@@ -1,7 +1,7 @@
 import re
 from math import prod
 
-with open("input03.txt") as f:
+with open("2024/input03.txt") as f:
     memory = f.read().rstrip()
 
 muls = re.findall(r"mul\(\d+,\d+\)", memory)
