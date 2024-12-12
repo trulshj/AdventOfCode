@@ -33,27 +33,26 @@ for y, row in enumerate(grid):
                 ny, nx = c[0]+dy, c[1]+dx
                 if get_grid(ny, nx) == cell:
                     stack.append((ny, nx))
-        garden_plots.append((cell, plot))
+        garden_plots.append(plot)
 
 
-def calculate_cost(garden_plot: tuple[str, set[tuple[int, int]]]):
-    coords = garden_plot[1]
-    area = len(coords)
+def calculate_cost(garden_plot: set[tuple[int, int]]):
+    area = len(garden_plot)
 
     perimeter = 0
-    for y, x in coords:
+    for y, x in garden_plot:
         p = 4
         for dy, dx in ORTHO:
-            p -= (y+dy, x+dx) in coords
+            p -= (y+dy, x+dx) in garden_plot
         perimeter += p
 
     sides = 0
-    for y, x in coords:
+    for y, x in garden_plot:
         for dy, dx in DIAGONAL:
             # Vertical, Horizontal, Diagonal
             v, h, d = (y+dy, x), (y, x+dx), (y+dy, x+dx)
-            sides += v not in coords and h not in coords  # Outer Corner
-            sides += v in coords and h in coords and d not in coords  # Inner Corner
+            sides += v not in garden_plot and h not in garden_plot  # Outer Corner
+            sides += v in garden_plot and h in garden_plot and d not in garden_plot  # Inner Corner
 
     return area, perimeter, sides
 
