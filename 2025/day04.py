@@ -1,41 +1,42 @@
-with open("2025/input04.txt") as f:
-    grid = [list(x.rstrip()) for x in f.readlines()]
+import grid_util as gu
+from time_util import start_timer
 
-DELTAS = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+timer = start_timer()
 
 
-def step(grid):
-    removed = 0
-    new_grid = [row[:] for row in grid]
+def step(grid: gu.Grid):
+    to_remove = []
+
+    def is_roll(cell): return cell == '@'
 
     for y, row in enumerate(grid):
         for x, cell in enumerate(row):
-            if cell != '@':
+            if not is_roll(cell):
                 continue
 
-            adjacent = sum(
-                grid[ny][nx] == '@'
-                for dy, dx in DELTAS
-                if 0 <= (ny := y+dy) < len(grid) and 0 <= (nx := x+dx) < len(grid[0])
-            )
-
+            adjacent = grid.count_neighbours(y, x, filter=is_roll)
             if adjacent < 4:
-                removed += 1
-                new_grid[y][x] = '.'
+                to_remove.append((y, x))
 
-    return new_grid, removed
-
-
-grid, removed = step(grid)
-print("Part 1:", removed)
+    return to_remove
 
 
-total_removed = removed
+grid = gu.input_grid()
+
+first = True
+total_removed = 0
 
 while True:
-    grid, removed = step(grid)
-    if removed == 0:
+    to_remove = step(grid)
+    if not to_remove:
         break
-    total_removed += removed
+
+    if first:
+        first = False
+        print("Part 1:", len(to_remove))
+
+    grid.bulk_set(to_remove, '.')
+    total_removed += len(to_remove)
 
 print("Part 2:", total_removed)
+timer.stop().print()

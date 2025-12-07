@@ -1,6 +1,6 @@
-with open("2025/input01.txt") as f:
-    l = [(-1 if x[0] == "L" else 1) * int(x[1:])
-         for x in (x.rstrip() for x in f.readlines())]
+import aoc_util as aoc
+
+l = [(-1 if x[0] == "L" else 1) * int(x[1:]) for x in aoc.lines()]
 
 
 curr = 50

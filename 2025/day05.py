@@ -1,7 +1,8 @@
-with open("2025/input05.txt") as f:
-    h, t = (x.split() for x in f.read().split("\n\n"))
-    ranges = [tuple(map(int, x.split('-'))) for x in h]
-    ingredients = [int(x) for x in t]
+import aoc_util as aoc
+
+h, t = aoc.sections()
+ranges = [tuple(map(int, x.split('-'))) for x in h]
+ingredients = [int(x) for x in t]
 
 
 fresh = 0
