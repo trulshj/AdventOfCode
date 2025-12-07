@@ -1,4 +1,4 @@
-import aoc_util as aoc
+import utils.aoc as aoc
 
 h, t = aoc.sections()
 ranges = [tuple(map(int, x.split('-'))) for x in h]

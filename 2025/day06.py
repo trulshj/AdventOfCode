@@ -1,5 +1,5 @@
 from itertools import groupby
-import aoc_util as aoc
+import utils.aoc as aoc
 from math import prod
 
 

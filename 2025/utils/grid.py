@@ -26,6 +26,12 @@ class Grid:
     def __iter__(self):
         yield from self._grid
 
+    def __str__(self):
+        s = ""
+        for row in self._grid:
+            s += "".join(str(x) for x in row) + "\n"
+        return s
+
     def in_bounds(self, y, x):
         return 0 <= y < self.height and 0 <= x < self.width
 
@@ -34,6 +40,9 @@ class Grid:
             for x, cell in enumerate(row):
                 if filter(y, x, cell):
                     yield (y, x)
+
+    def coords_with_value(self, value):
+        return self.filter_cells(lambda _y, _x, cell: cell == value)
 
     def neighbour_coords(self, y, x, ortho=False):
         for dy, dx in (self.DELTAS if not ortho else self.ORTHO_DELTAS):
@@ -55,3 +64,19 @@ class Grid:
     def bulk_set(self, coordinates, data):
         for y, x in coordinates:
             self._grid[y][x] = data
+
+
+def left(p: tuple[int, int]):
+    return (p[0], p[1]-1)
+
+
+def right(p: tuple[int, int]):
+    return (p[0], p[1]+1)
+
+
+def up(p: tuple[int, int]):
+    return (p[0]-1, p[1])
+
+
+def down(p: tuple[int, int]):
+    return (p[0]+1, p[1])

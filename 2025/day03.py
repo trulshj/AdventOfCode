@@ -1,5 +1,4 @@
-with open("2025/input03.txt") as f:
-    banks = [list(map(int, x.rstrip())) for x in f.readlines()]
+import utils.aoc as aoc
 
 
 def find_max_joltage(bank: list[int], batteries: int):
@@ -11,5 +10,6 @@ def find_max_joltage(bank: list[int], batteries: int):
     return joltage + max(bank)
 
 
-print(sum(find_max_joltage(bank, 2) for bank in banks))
-print(sum(find_max_joltage(bank, 12) for bank in banks))
+banks = [list(map(int, x.rstrip())) for x in aoc.readlines()]
+print("Part 1:", sum(find_max_joltage(bank, 2) for bank in banks))
+print("Part 2:", sum(find_max_joltage(bank, 12) for bank in banks))

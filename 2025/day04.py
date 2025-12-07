@@ -1,10 +1,10 @@
-import grid_util as gu
-from time_util import start_timer
+import utils.grid as g
+from utils.time import start_timer
 
 timer = start_timer()
 
 
-def step(grid: gu.Grid):
+def step(grid: g.Grid):
     to_remove = []
 
     def is_roll(cell): return cell == '@'
@@ -21,7 +21,7 @@ def step(grid: gu.Grid):
     return to_remove
 
 
-grid = gu.input_grid()
+grid = g.input_grid()
 
 first = True
 total_removed = 0
