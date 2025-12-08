@@ -28,7 +28,6 @@ def get_caller_info(max_depth: int = 5):
             frame = frame.f_back
 
     finally:
-        # Prevent reference cycles (important!)
         del frame
 
     raise RuntimeError(
