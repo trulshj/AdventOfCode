@@ -2,7 +2,6 @@ import utils.aoc as aoc
 from math import prod
 from collections import defaultdict
 from itertools import combinations
-import numpy as np
 
 timer = aoc.start()
 

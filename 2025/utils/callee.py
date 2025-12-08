@@ -3,7 +3,7 @@ import os
 import re
 from pathlib import Path
 
-DAY_RE = re.compile(r"^day(\d{2})\.py$")
+DAY_RE = re.compile(r"^day(\d{2})(?:_.*)?\.py$")
 
 
 def get_caller_info(max_depth: int = 5):
