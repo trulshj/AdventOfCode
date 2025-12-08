@@ -10,8 +10,8 @@ n = len(boxes)
 
 coords = np.array(boxes, dtype=np.int64)
 
-diff = coords[:, None, :] - coords[None, :, :]
-dist2 = np.einsum("ijk,ijk->ij", diff, diff)
+sq = np.sum(coords * coords, axis=1, keepdims=True)
+dist2 = sq - 2 * (coords @ coords.T) + sq.T
 
 i_idx, j_idx = np.triu_indices(n, k=1)
 flat_dist = dist2[i_idx, j_idx]
